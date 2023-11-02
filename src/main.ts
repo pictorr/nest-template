@@ -7,7 +7,6 @@ import { logger } from './utils/logger';
 import helmet from 'helmet';
 import { HttpExceptionFilter } from './utils/filters/http-exception.filter';
 import { AllExceptionsFilter } from './utils/filters/unknown-exception.filter';
-import metadata from './metadata';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger });
@@ -34,8 +33,6 @@ async function setupOpenApi(app: INestApplication) {
     .setTitle('API Documentation')
     .setVersion('1.0')
     .build();
-
-  await SwaggerModule.loadPluginMetadata(() => Promise.resolve(metadata));
 
   const document = SwaggerModule.createDocument(app, config);
 
